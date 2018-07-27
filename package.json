@@ -1,0 +1,34 @@
+{
+  "name": "gemini-cbt",
+  "version": "1.1.0",
+  "description": "Plugin for starting up a tunnel to crossbrowsertesting.com when running tests with Gemini",
+  "main": "lib/plugin.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sanghviharshit/gemini-cbt/"
+  },
+  "keywords": [
+    "gemini",
+    "gemini-plugin",
+    "cbt",
+    "tunnel",
+    "testing"
+  ],
+  "author": "Harshit Sanghvi <sanghvi.harshit@gmail.com> (http://sanghviharshit.com)",
+  "license": "Apache 2.0",
+  "dependencies": {
+    "cbt_tunnels": "^0.9.4",
+    "cleankill": "^1.0.0",
+    "lodash": "^3.5.0",
+    "q": "^1.2.0"
+  },
+  "devDependencies": {
+    "chai": "^2.1.2",
+    "mocha": "^2.2.1",
+    "mockery": "^1.4.0",
+    "sinon": "^1.14.1"
+  }
+}
