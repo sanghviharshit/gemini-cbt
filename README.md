@@ -1,5 +1,5 @@
 # gemini-cbt
-Plugin for starting up a [Cross Browser Testing](crossbrowsertesting.com) tunnel when running tests with Gemini
+Plugin for starting up a [Cross Browser Testing](https://crossbrowsertesting.com) tunnel when running tests with Gemini
 
 [![Build Status](https://travis-ci.org/sanghviharshit/gemini-cbt.svg?branch=master)](https://travis-ci.org/sanghviharshit/gemini-cbt)
 
@@ -28,17 +28,19 @@ system:
       accessKey: bar
 
 browsers:
-  ie11:
+  win10_edge17:
     desiredCapabilities:
-      os: "WINDOWS"
-      os_version: "7"
-      browserName: "internet explorer"
-      version: "11"
+      browserName: 'MicrosoftEdge'
+      version: '17'
+      platform: 'Windows 10'
+      screenResolution: '1366x768'
+      record_video: 'true'
+      record_network: 'true'
 
-  chrome43:
+  macos10_safari11:
     desiredCapabilities:
-      os: "WINDOWS"
-      os_version: "10"
-      browserName: "chrome"
-      version: "43"
+      browserName: 'Safari'
+      version: '11'
+      platform: 'Mac OSX 10.13'
+      screenResolution: '1366x768'
 ```

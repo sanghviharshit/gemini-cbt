@@ -4,31 +4,33 @@ var sinon = require('sinon');
 
 describe('crossbrowsertest', function() {
   var crossbrowsertest,
-  wrapper,
   cleankill,
-  tunnel;
+  cbt;
 
   before(function() {
     cleankill = sinon.spy();
-    tunnel = {};
-    wrapper = sinon.spy(function() {
-      return tunnel;
-    });
+
+    cbt = {
+      start: function(opts, cb) { cb(); },
+      stop: function(opts, cb) { cb(); },
+      status: function(opts, cb) { cb(); }
+    }
 
     mockery.registerMock('cleankill', cleankill);
-    mockery.registerMock('cbt_tunnels', wrapper);
+    mockery.registerMock('cbt_tunnels', cbt);
   });
 
   beforeEach(function() {
-    wrapper.reset();
     cleankill.reset();
-
-    tunnel.start = function(cb) { cb(); }
+    var opts;
+    cbt.start = function(opts, cb) { cb(); }
 
     mockery.enable({
       warnOnReplace: false,
       warnOnUnregistered: false
     });
+
+    // console.log(require('cbt_tunnels'));
 
     crossbrowsertest = require('../lib/crossbrowsertest')();
 
@@ -61,7 +63,7 @@ describe('crossbrowsertest', function() {
 
       start();
 
-      expect(done.args[0][1].gridUrl).to.equal('http://foo:bar@crossbrowsertesting.com/wd/hub');
+      expect(done.args[0][1].gridUrl).to.equal('https://foo:bar@crossbrowsertesting.com/wd/hub');
     });
 
     it.skip('should set localIdentifier.', function() {
@@ -79,7 +81,8 @@ describe('crossbrowsertest', function() {
     });
 
     it('should return error on start', function() {
-      tunnel.start = function(cb) { cb('error'); }
+      var opts;
+      cbt.start = function(opts, cb) { cb('error'); }
 
       start();
 
@@ -96,7 +99,7 @@ describe('crossbrowsertest', function() {
 
     beforeEach(function() {
       done = sinon.spy();
-      tunnel.stop = sinon.spy(function(cb) { cb(); });
+      cbt.stop = sinon.spy(function(cb) { cb(); });
     });
 
     it('should close the tunnel', function() {
@@ -105,7 +108,7 @@ describe('crossbrowsertest', function() {
 
       stop();
 
-      expect(tunnel.stop.called).to.be.true;
+      expect(cbt.stop.called).to.be.true;
       expect(done.called).to.be.true;
     });
   });
