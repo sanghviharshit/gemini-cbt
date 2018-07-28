@@ -56,28 +56,6 @@ describe('plugin', function() {
     mockery.disable();
   });
 
-  afterEach(function() {
-    delete process.env.CBT_USERNAME;
-    delete process.env.CBT_AUTHKEY;
-  });
-
-  it('should fail if credentials not provided', function() {
-    expect(function() {
-      plugin(gemini, {});
-    }).to.throw(Error);
-  });
-
-  it('should read credentials from env', function() {
-    process.env.CBT_USERNAME = 'foo';
-    process.env.CBT_AUTHKEY = 'bar';
-
-    var opts = {};
-    plugin(gemini, opts);
-
-    expect(opts.username).to.equal('foo');
-    expect(opts.authkey).to.equal('bar');
-  });
-
   function init() {
     plugin(gemini, {username: 'foo', authkey: 'bar'});
   };

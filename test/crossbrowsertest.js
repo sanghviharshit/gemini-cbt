@@ -38,17 +38,21 @@ describe('crossbrowsertest', function() {
   });
 
   describe('start', function() {
-    var opts,
-    done;
+    var opts, done;
 
     function start() {
       crossbrowsertest.start(opts, done);
     };
 
     beforeEach(function() {
-      opts = {};
+      opts = {username: "foo", authkey: "bar"};
       done = sinon.spy();
       cleankill.onInterrupt = sinon.spy();
+    });
+
+    afterEach(function() {
+      delete process.env.CBT_USERNAME;
+      delete process.env.CBT_AUTHKEY;
     });
 
     it('should throw error if tunnel already opened', function() {
@@ -58,9 +62,6 @@ describe('crossbrowsertest', function() {
     });
 
     it('should callback with gridUrl.', function() {
-      opts.username = 'foo';
-      opts.authkey = 'bar';
-
       start();
 
       expect(done.args[0][1].gridUrl).to.equal('https://foo:bar@crossbrowsertesting.com/wd/hub');
@@ -72,14 +73,18 @@ describe('crossbrowsertest', function() {
       expect(cleankill.onInterrupt.called).to.be.true;
     });
 
-    it('should return error on start', function() {
-      var opts;
-      cbt.start = function(opts, cb) { cb('error'); }
+    it('should return error on start if credentials not provided', function() {
+      opts = {};
+      expect(function() { start(); }).to.throw(Error);
+    });
 
-      start();
+    it('should read credentials from env', function() {
+      process.env.CBT_USERNAME = 'foobar';
+      process.env.CBT_AUTHKEY = 'barfoo';
+      opts = {};
+      expect(function() { start(); }).to.not.throw(Error);
+    });
 
-      expect(done.args[0][0]).to.equal('error');
-    })
   });
 
   describe('stop', function() {
@@ -96,7 +101,7 @@ describe('crossbrowsertest', function() {
 
     it('should close the tunnel', function() {
       cleankill.onInterrupt = sinon.spy();
-      crossbrowsertest.start({}, sinon.spy());
+      crossbrowsertest.start({username: "foo", authkey: "bar"}, sinon.spy());
 
       stop();
 
