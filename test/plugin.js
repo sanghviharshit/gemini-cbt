@@ -75,26 +75,11 @@ describe('plugin', function() {
     plugin(gemini, opts);
 
     expect(opts.username).to.equal('foo');
-    expect(opts.accessKey).to.equal('bar');
-  });
-
-  it.skip('should set localIdentifier in capabilities', function() {
-    var opts = {username: 'foo', accessKey: 'bar', localIdentifier: "abc123"};
-    gemini.config._browsers = {'chrome': {desiredCapabilities: {platform: 'Windows'}}};
-
-    plugin(gemini, opts);
-
-    crossbrowsertest.start = function(opts, cb) {
-      cb(null, {});
-    };
-
-    gemini['startRunner']()
-
-    expect(gemini.config._browsers.chrome.desiredCapabilities['crossbrowsertest.localIdentifier']).to.equal('abc123');
+    expect(opts.authkey).to.equal('bar');
   });
 
   function init() {
-    plugin(gemini, {username: 'foo', accessKey: 'bar'});
+    plugin(gemini, {username: 'foo', authkey: 'bar'});
   };
 
   describe('on startRunner', function() {
@@ -122,17 +107,6 @@ describe('plugin', function() {
       startRunner();
 
       expect(gemini.config._browsers.chrome.gridUrl).to.equal('url');
-    });
-
-    it.skip('should inject local setting to browsers', function() {
-      gemini.config._browsers = {'chrome': {desiredCapabilities: {platform: 'Windows'}}};
-      crossbrowsertest.start = function(opts, cb) {
-        cb(null, {});
-      };
-
-      startRunner();
-
-      expect(gemini.config._browsers.chrome.desiredCapabilities['crossbrowsertest.local']).to.equal(true);
     });
 
     it('should return a promise', function() {
@@ -168,7 +142,7 @@ describe('plugin', function() {
     };
 
     beforeEach(function() {
-      plugin(gemini, {username: 'foo', accessKey: 'bar'});
+      plugin(gemini, {username: 'foo', authkey: 'bar'});
       crossbrowsertest.stop = sinon.spy();
     });
 

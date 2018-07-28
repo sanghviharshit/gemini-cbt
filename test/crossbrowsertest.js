@@ -59,19 +59,11 @@ describe('crossbrowsertest', function() {
 
     it('should callback with gridUrl.', function() {
       opts.username = 'foo';
-      opts.accessKey = 'bar';
+      opts.authkey = 'bar';
 
       start();
 
       expect(done.args[0][1].gridUrl).to.equal('https://foo:bar@crossbrowsertesting.com/wd/hub');
-    });
-
-    it.skip('should set localIdentifier.', function() {
-      opts.localIdentifier = 'abc123'
-
-      start();
-
-      expect(wrapper.alwaysCalledWithMatch({localIdentifier: 'abc123'})).to.be.true;
     });
 
     it('should enable cleankill on interrupt', function() {

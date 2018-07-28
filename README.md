@@ -12,8 +12,9 @@ Works with [gemini](https://github.com/gemini-testing/gemini) [v1.0.0](https://g
 `npm install sanghviharshit/gemini-cbt`
 
 ## Configuration
-- __username__ (optional) sets the username for CBT. Defaults to environmental variable CBT_USERNAME
-- __accessKey__ (optional) sets the accesskey for CBT. Defaults to environmental variable CBT_ACCESS_KEY
+- All parameters supported by cbt_tunnels (https://www.npmjs.com/package/cbt_tunnels)
+  - __username__ (optional) sets the username for CBT. Defaults to environmental variable CBT_USERNAME
+  - __authkey__ (optional) sets the authkey for CBT. Defaults to environmental variable CBT_ACCESS_KEY
 
 Example configuration for your `.gemini.yml`
 
@@ -25,7 +26,7 @@ system:
   plugins:
     cbt:
       username: foo
-      accessKey: bar
+      authkey: bar
 
 browsers:
   win10_edge17:
