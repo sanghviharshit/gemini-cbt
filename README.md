@@ -27,6 +27,8 @@ system:
     cbt:
       username: foo
       authkey: bar
+      quiet: true
+      tunnelname: foobar
 
 browsers:
   win10_edge17:
@@ -44,4 +46,22 @@ browsers:
       version: '11'
       platform: 'Mac OSX 10.13'
       screenResolution: '1366x768'
+```
+
+## Environment variables
+You can provide the following environment variables to override the default configs
+- `CBT_USERNAME` - username for crossbrosertesting.com account
+- `CBT_AUTHKEY` - authentication key for crossbrosertesting.com account
+- `CBT_ID` - Add an id to test name
+- `CBT_QUIET` - start tunnel in quiet mode
+- `CBT_BUILD` - to associate the tests with a specific build in crossbrowsertesting.com
+- `CBT_TUNNEL_NAME` - to create a named tunnel
+- `CBT_MAX_DURATION` - max duration for the test
+- `CBT_RECORD_VIDEO` - record video for tests
+- `CBT_RECORD_NETWORK` - record network data for tests
+
+### Example
+Here is an example `npm run update` command for updating screenshots
+```
+CBT_USERNAME=xyz@example.com CBT_AUTHKEY=abcd123xyz CBT_BUILD="`git log --pretty=format:'%h' -n 1` - `date +%r`" npm run update
 ```
