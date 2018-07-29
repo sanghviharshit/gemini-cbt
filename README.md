@@ -9,7 +9,7 @@ Plugin for starting up a [Cross Browser Testing](https://crossbrowsertesting.com
 Works with [gemini](https://github.com/gemini-testing/gemini) [v1.0.0](https://github.com/gemini-testing/gemini/releases/tag/v1.0.0) or later.
 
 ## Installation
-`npm install sanghviharshit/gemini-cbt`
+`npm install gemini-cbt`
 
 ## Configuration
 - All parameters supported by cbt_tunnels (https://www.npmjs.com/package/cbt_tunnels)
